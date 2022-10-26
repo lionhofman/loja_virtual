@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "562839893098",
+    "project_id": "lojavirtual-a7f9d",
+    "storage_bucket": "lojavirtual-a7f9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562839893098:android:e0ebc47863be890cf70613",
+        "android_client_info": {
+          "package_name": "br.com.lion.hofman.lojavirtual.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562839893098-8g4boi74sl8n1js41obf328vkvdastd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACHu6FZlfDmYoS3_h7damzXCP7NbZB6Co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562839893098-8g4boi74sl8n1js41obf328vkvdastd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
