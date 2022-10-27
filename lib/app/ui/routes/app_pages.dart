@@ -10,6 +10,7 @@ class AppPages {
       name: AppRoutes.HOME,
       page: () => const HomePage(),
       binding: HomeBinding(),
+      transition: Transition.cupertino,
     ),
   ];
 }

@@ -13,11 +13,12 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       // The two lines bellow are for the responsive
-      title: 'Loja Virtual',
+      title: "Flutter's Clothings",
       initialRoute: AppRoutes.HOME,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Colors.blue,
+          primarySwatch: Colors.blue,
+          primaryColor: const Color.fromARGB(255, 4, 125, 141),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       getPages: AppPages.pages,
       defaultTransition: Transition.noTransition,
