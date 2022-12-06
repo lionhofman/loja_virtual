@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loja_virtual/app/ui/modules/home/controllers/home_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
 
   Widget _buildBodyBack() => Container(
@@ -18,63 +19,51 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Home Page'),
-      // ),
-
-      /**
-       * 
-       * TODO Buscar as informações atraves da camada do DataSource e vir trazendo pelas camadas sem deixar uma consulta no banco de dados direto no front-end
-       */
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
       body: Stack(
         children: [
           _buildBodyBack(),
-          CustomScrollView(
-            slivers: [
-              const SliverAppBar(
-                floating: true,
-                snap: true,
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text("Novidades"),
-                  centerTitle: true,
-                ),
-              ),
-              FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection("home")
-                    .orderBy("pos")
-                    .get(),
-                builder: ((context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return SliverToBoxAdapter(
-                      child: Container(
-                        height: 200,
-                        alignment: Alignment.center,
-                        child: const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
-                    );
-                  } else {
-                    print(snapshot.data!.docs.length);
-                    return SliverToBoxAdapter(
-                      child: Container(
-                        height: 200,
-                        alignment: Alignment.center,
-                        child: const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
-                    );
-                  }
-                }),
-              )
-            ],
-          )
+          Center(
+            child: Container(
+              child: Text("Total de ${controller.listShowCase.length}"),
+            ),
+          ),
+          Obx(() => CustomScrollView(
+                slivers: [
+                  const SliverAppBar(
+                    floating: true,
+                    snap: true,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: Text("Novidades "),
+                      centerTitle: true,
+                    ),
+                  ),
+                  controller.listShowCase.isEmpty
+                      ? SliverToBoxAdapter(
+                          child: Container(
+                            height: 200,
+                            alignment: Alignment.center,
+                            child: const CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+                        )
+                      : SliverToBoxAdapter(
+                          child: Container(
+                          height: 200,
+                          alignment: Alignment.center,
+                          child: Obx(
+                            () => Text(
+                                "Total de ${controller.listShowCase.length}"),
+                          ),
+                        ))
+                ],
+              ))
         ],
       ),
     );
