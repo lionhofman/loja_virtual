@@ -19,18 +19,19 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: Stack(
-        children: [
-          _buildBodyBack(),
-          Center(
-            child: Container(
-              child: Text("Total de ${controller.listShowCase.length}"),
-            ),
-          ),
-          Obx(() => CustomScrollView(
+        appBar: AppBar(
+          title: const Text('Home Page'),
+        ),
+        body: Obx(
+          () => Stack(
+            children: [
+              _buildBodyBack(),
+              Center(
+                child: Container(
+                  child: Text("Total de ${controller.listShowCase.length}"),
+                ),
+              ),
+              CustomScrollView(
                 slivers: [
                   const SliverAppBar(
                     floating: true,
@@ -42,30 +43,22 @@ class HomePage extends GetView<HomeController> {
                       centerTitle: true,
                     ),
                   ),
-                  controller.listShowCase.isEmpty
-                      ? SliverToBoxAdapter(
-                          child: Container(
-                            height: 200,
-                            alignment: Alignment.center,
-                            child: const CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          ),
-                        )
-                      : SliverToBoxAdapter(
-                          child: Container(
-                          height: 200,
-                          alignment: Alignment.center,
-                          child: Obx(
-                            () => Text(
-                                "Total de ${controller.listShowCase.length}"),
-                          ),
-                        ))
+                  SliverToBoxAdapter(
+                    child: Container(
+                        height: 200,
+                        alignment: Alignment.center,
+                        child: controller.listShowCase.isEmpty
+                            ? const CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
+                              )
+                            : Text(
+                                "Total de ${controller.listShowCase.length}")),
+                  )
                 ],
-              ))
-        ],
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 }
