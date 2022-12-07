@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loja_virtual/app/ui/modules/home/controllers/home_controller.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -26,11 +28,6 @@ class HomePage extends GetView<HomeController> {
           () => Stack(
             children: [
               _buildBodyBack(),
-              Center(
-                child: Container(
-                  child: Text("Total de ${controller.listShowCase.length}"),
-                ),
-              ),
               CustomScrollView(
                 slivers: [
                   const SliverAppBar(
@@ -44,17 +41,29 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: Container(
-                        height: 200,
-                        alignment: Alignment.center,
-                        child: controller.listShowCase.isEmpty
-                            ? const CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              )
-                            : Text(
-                                "Total de ${controller.listShowCase.length}")),
-                  )
+                      child: Container(
+                    alignment: Alignment.center,
+                    child: controller.listShowCase.isEmpty
+                        ? const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : StaggeredGrid.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 1,
+                            crossAxisSpacing: 1,
+                            children: controller.listShowCase.map((showcase) {
+                              return StaggeredGridTile.count(
+                                  crossAxisCellCount: showcase!.x!,
+                                  mainAxisCellCount: showcase.y!,
+                                  child: FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: showcase.image!,
+                                    fit: BoxFit.cover,
+                                  ));
+                            }).toList(),
+                          ),
+                  )),
                 ],
               )
             ],

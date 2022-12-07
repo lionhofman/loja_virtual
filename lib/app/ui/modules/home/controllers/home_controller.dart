@@ -33,7 +33,7 @@ class HomeController extends GetxController {
     }, (data) {
       _listShowCase.clear();
       _listShowCase = data.obs;
-      print("TOTAL DE ${_listShowCase.length}");
+      // print("TOTAL DE ${_listShowCase.length}");
       // _showCase.value = data;
     });
   }
