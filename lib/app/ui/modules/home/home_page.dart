@@ -6,7 +6,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+  final pageController = PageController();
+  HomePage({Key? key}) : super(key: key);
 
   Widget _buildBodyBack() => Container(
         decoration: const BoxDecoration(
@@ -19,10 +20,9 @@ class HomePage extends GetView<HomeController> {
           end: Alignment.bottomRight,
         )),
       );
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildHome() {
     return Scaffold(
-        drawer: CustomDrawer(),
+        drawer: CustomDrawer(pageController: pageController),
         body: Obx(
           () => Stack(
             children: [
@@ -68,5 +68,19 @@ class HomePage extends GetView<HomeController> {
             ],
           ),
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: pageController,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        _buildHome(),
+        Container(
+          color: Colors.red,
+        ),
+      ],
+    );
   }
 }

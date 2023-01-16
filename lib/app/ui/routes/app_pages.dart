@@ -8,7 +8,7 @@ class AppPages {
   static final pages = [
     GetPage(
       name: AppRoutes.HOME,
-      page: () => const HomePage(),
+      page: () => HomePage(),
       binding: HomeBinding(),
       transition: Transition.cupertino,
     ),
