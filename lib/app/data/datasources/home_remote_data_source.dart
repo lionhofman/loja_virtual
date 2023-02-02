@@ -8,6 +8,11 @@ abstract class HomeRemoteDataSource {
     required String page,
     String? orderBy,
   });
+
+  Stream<List<ShowCase>> getShowCaseAsStream({
+    required String page,
+    String? orderBy,
+  });
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -24,11 +29,24 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
         FirebaseFirestore.instance.collection(page);
     List<ShowCase?> showCaseList = [];
 
-    await collection.get().then((value) {
-      for (var doc in value.docs) {
-        showCaseList.add(ShowCaseResponse.fromFirestone(doc.data()));
-      }
+    await collection.get().then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        showCaseList.add(ShowCaseResponse.fromFirestore(doc.data()));
+      });
     });
     return showCaseList;
   }
+
+  @override
+  Stream<List<ShowCase>> getShowCaseAsStream(
+      {required String page, String? orderBy}) {
+    return readShowCase(page);
+  }
+
+  Stream<List<ShowCase>> readShowCase(String page) => FirebaseFirestore.instance
+      .collection(page)
+      .snapshots()
+      .map((snapshot) => snapshot.docs
+          .map((doc) => ShowCaseResponse.fromFirestore(doc.data()))
+          .toList());
 }
