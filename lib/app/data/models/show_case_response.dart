@@ -9,7 +9,7 @@ class ShowCaseResponse extends ShowCase {
     required super.y,
   });
 
-  factory ShowCaseResponse.fromFirestone(
+  factory ShowCaseResponse.fromFirestore(
     Map<String, dynamic> dataSnapshot,
   ) {
     return ShowCaseResponse(
