@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loja_virtual/app/ui/modules/core/widgets/drawer/custom_drawer.dart';
 import 'package:loja_virtual/app/ui/modules/home/controllers/home_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:loja_virtual/app/ui/modules/products/product_page.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -77,6 +78,7 @@ class HomePage extends GetView<HomeController> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         _buildHome(),
+        ProductPage(pageController: pageController),
         Container(
           color: Colors.red,
         ),

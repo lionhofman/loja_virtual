@@ -4,6 +4,7 @@ import 'package:loja_virtual/app/data/repositories/home_repository_impl.dart';
 import 'package:loja_virtual/app/domain/repositories/home_repository.dart';
 import 'package:loja_virtual/app/domain/usecases/home/get_showcase_use_case.dart';
 import 'package:loja_virtual/app/ui/modules/home/controllers/home_controller.dart';
+import 'package:loja_virtual/app/ui/modules/products/product_binding.dart';
 
 class HomeBinding implements Bindings {
   @override
@@ -14,5 +15,6 @@ class HomeBinding implements Bindings {
     Get.lazyPut(() => GetShowcaseUseCase(Get.find<HomeRepository>()));
     Get.lazyPut<HomeController>(
         () => HomeController(Get.find<GetShowcaseUseCase>()));
+    ProductBinding().dependencies();
   }
 }
